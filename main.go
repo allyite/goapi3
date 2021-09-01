@@ -1,7 +1,7 @@
 package main
 
 import (
-	"router"
+	"github.com/allyite/goapi3/router"
 )
 
 func main() {
