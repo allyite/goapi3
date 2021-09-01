@@ -1,7 +1,7 @@
 package router
 
 import (
-	"https://github.com/allyite/goapi3/api"
+	"github.com/allyite/goapi3/api"
 //	"api/middlewares"
 
 	"github.com/labstack/echo"
