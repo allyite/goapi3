@@ -1,7 +1,7 @@
 package router
 
 import (
-//	"api"
+	"api"
 //	"api/middlewares"
 
 	"github.com/labstack/echo"
@@ -19,7 +19,7 @@ func New() *echo.Echo {
 //	middlewares.SetAdminMiddlewares(adminGroup)
 
 	//set main routes
-//	api.MainGroup(e)
+	api.MainGroup(e)
 
 	//set groupRoutes
 //	api.AdminGroup(adminGroup)
