@@ -7,16 +7,29 @@ import (
 	"net/http"
 
 	"github.com/allyite/goapi3/models"
-
+	"github.com/allyite/goapi3/helper"
+	
+	"go.mongodb.org/mongo-driver/mongo"
 	"github.com/labstack/echo"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 //http://localhost:8000/cats/json?name=arnold&type=fluffy
-func GetStats(c echo.Context) error {
+func GetStats(c echo.Context, collection *mongo.Collection) error {
 	sName := c.QueryParam("name")
 	dataType := c.Param("data")
 	if dataType == "string" {
-		return c.String(http.StatusOK, fmt.Sprintf("your state name is : %s\n", sName))
+		var state models.stateResp
+		filter := bson.M{"state": sName}
+		err := collection.FindOne(context.TODO(), filter).Decode(&state)
+
+		if err != nil {
+			helper.GetError(err, w)
+			return
+		}
+		return c.String(http.StatusOK, fmt.Sprintf("your state name is : %s\n Active cases: %s\n", sName, state.active))
+		
 	} else if dataType == "json" {
 		state := models.State{
 			Name: sName,
@@ -29,3 +42,28 @@ func GetStats(c echo.Context) error {
 	}
 
 }
+
+/*
+func getBook(w http.ResponseWriter, r *http.Request) {
+	// set header.
+	w.Header().Set("Content-Type", "application/json")
+
+	var book models.Book
+	// we get params with mux.
+	var params = mux.Vars(r)
+
+	// string to primitive.ObjectID
+	id, _ := primitive.ObjectIDFromHex(params["id"])
+
+	// We create filter. If it is unnecessary to sort data for you, you can use bson.M{}
+	filter := bson.M{"_id": id}
+	err := collection.FindOne(context.TODO(), filter).Decode(&book)
+
+	if err != nil {
+		helper.GetError(err, w)
+		return
+	}
+
+	json.NewEncoder(w).Encode(book)
+}
+*/
