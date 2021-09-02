@@ -21,7 +21,7 @@ func GetStats(c echo.Context, collection *mongo.Collection) error {
 	sName := c.QueryParam("name")
 	dataType := c.Param("data")
 	if dataType == "string" {
-		var state models.StateResp
+		state := models.StateResp{}
 		filter := bson.M{"state": sName}
 		err := collection.FindOne(context.TODO(), filter).Decode(&state)
 
