@@ -28,8 +28,8 @@ type StateResp struct {
 
 type StateResp struct {
 ID     primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
-active string `json:"active" bson:"active"`
-confirmed string `json:"confirmed" bson:"confirmed"`
+Active string `json:"active" bson:"active"`
+Confirmed string `json:"confirmed" bson:"confirmed"`
 deaths string `json:"deaths" bson:"deaths"`
 deltaconfirmed string `json:"deltaconfirmed" bson:"deltaconfirmed"`
 deltadeaths string `json:"deltadeaths" bson:"deltadeaths"`
