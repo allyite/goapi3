@@ -3,6 +3,7 @@ package handlers
 import (
 //	"encoding/json"
 	"fmt"
+	"context"
 //	"log"
 	"net/http"
 
@@ -12,7 +13,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"github.com/labstack/echo"
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
+//	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 //http://localhost:8000/cats/json?name=arnold&type=fluffy
@@ -20,13 +21,13 @@ func GetStats(c echo.Context, collection *mongo.Collection) error {
 	sName := c.QueryParam("name")
 	dataType := c.Param("data")
 	if dataType == "string" {
-		var state models.stateResp
+		var state models.StateResp
 		filter := bson.M{"state": sName}
 		err := collection.FindOne(context.TODO(), filter).Decode(&state)
 
 		if err != nil {
-			helper.GetError(err, w)
-			return
+			////helper.GetError(err, w)
+			return c.String(http.StatusOK, fmt.Sprintf("Error : %s\n", sName, err.Error()))
 		}
 		return c.String(http.StatusOK, fmt.Sprintf("your state name is : %s\n Active cases: %s\n", sName, state.active))
 		
