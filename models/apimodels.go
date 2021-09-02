@@ -36,8 +36,8 @@ type StateResp struct {
 	Deltarecovered string `json:"deltarecovered" bson:"deltarecovered"`
 	Lastupdatedtime string `json:"lastupdatedtime" bson:"lastupdatedtime"`
 	Migratedother string `json:"migratedother" bson:"migratedother"`
-	recovered string `json:"recovered" bson:"recovered"`
-	state string `json:"state" bson:"state"`
-	statecode string `json:"statecode" bson:"statecode"`
-	statenotes string `json:"statenotes" bson:"statenotes"`
+	Recovered string `json:"recovered" bson:"recovered"`
+	State string `json:"state" bson:"state"`
+	Statecode string `json:"statecode" bson:"statecode"`
+	Statenotes string `json:"statenotes" bson:"statenotes"`
 }
