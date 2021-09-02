@@ -19,6 +19,7 @@ import (
 //http://localhost:8000/cats/json?name=arnold&type=fluffy
 func GetStats(c echo.Context, collection *mongo.Collection) error {
 	sName := c.QueryParam("name")
+	sName = sName[1:len(sName)-1]
 	dataType := c.Param("data")
 	if dataType == "string" {
 		var sr models.StateResp
