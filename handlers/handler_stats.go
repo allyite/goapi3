@@ -37,8 +37,8 @@ func GetStats(c echo.Context, collection *mongo.Collection) error {
 			return c.String(http.StatusOK, fmt.Sprintf("Error : %s\nIndia", err.Error()))
 		}
 		////return c.JSON(http.StatusOK, sr)
-		out := "State: "+ sName + "\nActive Cases: " + sr.Active + "\nTotal Confirmed Cases: " + sr.Confirmed
-		out = out + "\n\n" + "Country: India" + "\nActive Cases: " + sr2.Active + "\nTotal Confirmed Cases: " + sr2.Confirmed
+		out := "State: "+ sName + "\nActive Cases: " + sr.Active + "\nTotal Confirmed Cases: " + sr.Confirmed 
+		out = out + "\n\n" + "Country: India" + "\nActive Cases: " + sr2.Active + "\nTotal Confirmed Cases: " + sr2.Confirmed + "\nLast Updated Time: " + sr2.Lastupdatedtime
 		return c.String(http.StatusOK, fmt.Sprintf(out))
 		
 	} else if dataType == "json" {
