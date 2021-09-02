@@ -21,15 +21,15 @@ func GetStats(c echo.Context, collection *mongo.Collection) error {
 	sName := c.QueryParam("name")
 	dataType := c.Param("data")
 	if dataType == "string" {
-		state := models.StateResp{}
+		var sr models.StateResp
 		filter := bson.M{"state": sName}
-		err := collection.FindOne(context.TODO(), filter).Decode(&state)
+		err := collection.FindOne(context.TODO(), filter).Decode(&sr)
 
 		if err != nil {
 			////helper.GetError(err, w)
 			return c.String(http.StatusOK, fmt.Sprintf("Error : %s\n", sName, err.Error()))
 		}
-		return c.JSON(http.StatusOK, state)
+		return c.JSON(http.StatusOK, sr)
 		////return c.String(http.StatusOK, fmt.Sprintf("your state name is : %s\n Active cases: %s\n", sName, state.active))
 		
 	} else if dataType == "json" {
