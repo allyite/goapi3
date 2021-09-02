@@ -1,10 +1,7 @@
 package main
 
-var collection = helper.ConnectDB()
-
 import (
 	"github.com/allyite/goapi3/router"
-	"github.com/allyite/goapi3/helper"
 )
 
 func main() {
