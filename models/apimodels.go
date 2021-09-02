@@ -27,17 +27,17 @@ type StateResp struct {
 */
 
 type StateResp struct {
-ID     primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
-Active string `json:"active" bson:"active"`
-Confirmed string `json:"confirmed" bson:"confirmed"`
-deaths string `json:"deaths" bson:"deaths"`
-deltaconfirmed string `json:"deltaconfirmed" bson:"deltaconfirmed"`
-deltadeaths string `json:"deltadeaths" bson:"deltadeaths"`
-deltarecovered string `json:"deltarecovered" bson:"deltarecovered"`
-lastupdatedtime string `json:"lastupdatedtime" bson:"lastupdatedtime"`
-migratedother string `json:"migratedother" bson:"migratedother"`
-recovered string `json:"recovered" bson:"recovered"`
-state string `json:"state" bson:"state"`
-statecode string `json:"statecode" bson:"statecode"`
-statenotes string `json:"statenotes" bson:"statenotes"`
+	ID     primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
+	Active string `json:"active" bson:"active"`
+	Confirmed string `json:"confirmed" bson:"confirmed"`
+	Deaths string `json:"deaths" bson:"deaths"`
+	Deltaconfirmed string `json:"deltaconfirmed" bson:"deltaconfirmed"`
+	Deltadeaths string `json:"deltadeaths" bson:"deltadeaths"`
+	Deltarecovered string `json:"deltarecovered" bson:"deltarecovered"`
+	Lastupdatedtime string `json:"lastupdatedtime" bson:"lastupdatedtime"`
+	Migratedother string `json:"migratedother" bson:"migratedother"`
+	recovered string `json:"recovered" bson:"recovered"`
+	state string `json:"state" bson:"state"`
+	statecode string `json:"statecode" bson:"statecode"`
+	statenotes string `json:"statenotes" bson:"statenotes"`
 }
