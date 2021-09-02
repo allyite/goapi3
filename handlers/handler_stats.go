@@ -30,7 +30,7 @@ func GetStats(c echo.Context, collection *mongo.Collection) error {
 			return c.String(http.StatusOK, fmt.Sprintf("Error : %s\n", sName, err.Error()))
 		}
 		////return c.JSON(http.StatusOK, sr)
-		return c.String(http.StatusOK, fmt.Sprintf("your state name is : %s\n Active cases: %s\n Json: %s", sName, state.Active, sr))
+		return c.String(http.StatusOK, fmt.Sprintf("your state name is : %s\n Active cases: %s\n Json: %s", sName, sr.Active, sr))
 		
 	} else if dataType == "json" {
 		state := models.State{
