@@ -25,13 +25,21 @@ func GetStats(c echo.Context, collection *mongo.Collection) error {
 		var sr models.StateResp
 		filter := bson.M{"state": sName}
 		err := collection.FindOne(context.TODO(), filter).Decode(&sr)
-
 		if err != nil {
 			////helper.GetError(err, w)
 			return c.String(http.StatusOK, fmt.Sprintf("Error : %s\n", sName, err.Error()))
 		}
+		var sr2 models.StateResp
+		filter := bson.M{"state": "Total"}
+		err := collection.FindOne(context.TODO(), filter).Decode(&sr2)
+		if err != nil {
+			////helper.GetError(err, w)
+			return c.String(http.StatusOK, fmt.Sprintf("Error : %s\nIndia", err.Error()))
+		}
 		////return c.JSON(http.StatusOK, sr)
-		return c.String(http.StatusOK, fmt.Sprintf("your state name is : %s\n Active cases: %s\n Json: %s", sName, sr.Active, sr))
+		out := "State: "+ sName + "\nActive Cases: " + sr.Active + "\nTotal Confirmed Cases: " + sr.Confirmed
+		out = out + "\n\n" + "Country: India" + "\nActive Cases: " + sr2.Active + "\nTotal Confirmed Cases: " + sr2.Confirmed
+		return c.String(http.StatusOK, fmt.Println(out))
 		
 	} else if dataType == "json" {
 		state := models.State{
