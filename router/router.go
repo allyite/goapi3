@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/allyite/goapi3/handlers"
-//	"github.com/allyite/goapi3/helper"
+	"github.com/allyite/goapi3/helper"
 	
 	"net/http"
 //	"api/middlewares"
@@ -18,8 +18,13 @@ func New(mClient *mongo.Client) *echo.Echo {
 	handler1 := func(c echo.Context) error {
         	return handlers.GetStats(c, mClient)
         }
-
-	e.GET("/cats/:data", handler1)
+	e.GET("/stats", handler1)
+	//e.GET("/stats/:data", handler1)
+	
+	handler2 := func(c echo.Context) error {
+        	return helper.updMongoColl(c, mClient)
+        }
+	e.GET("/update", handler2)
 	
 	return e
 	
