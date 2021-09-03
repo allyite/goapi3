@@ -25,7 +25,7 @@ func ConnectDB() *mongo.Client {
 	config := GetConfiguration()
 
 	// Set client options
-	clientOptions := options.Client().ApplyURI(config.ConnectionString)
+	clientOptions := options.Client().ApplyURI(config.MongoConnectionString)
 
 	// Connect to MongoDB
 	client, err := mongo.Connect(context.TODO(), clientOptions)
@@ -93,15 +93,43 @@ func UpdMongoColl(c echo.Context, client *mongo.Client) error{
 	
 }
 
-// ErrorResponse : This is error model.
-type ErrorResponse struct {
-	StatusCode   int    `json:"status"`
-	ErrorMessage string `json:"message"`
+func RgeoState(lat string,long string) string{
+	config := GetConfiguration()
+	apikey:= config.RgeoApiKey
+
+	type ADD struct{
+		State string `json:"state"`
+	}
+	type ITEM struct{
+		Address ADD `json:"address"`
+	}
+	type ITEMS struct{
+		Items []ITEM `json:"items"`
+	}
+	Url:= "https://revgeocode.search.hereapi.com/v1/revgeocode?at="
+	Url= Url+ string(lat) + "," + string(long) + "&apikey=" + apikey
+ 	resp, err := http.Get(Url)
+ 	if err != nil {
+   		log.Fatal("ooopsss1"+err.Error())
+ 	}
+ 	defer resp.Body.Close()
+	var items ITEMS
+	if err := json.NewDecoder(resp.Body).Decode(&items); err != nil {
+      		log.Fatal("ooopsss2"+err.Error())
+   	}
+	return items.Items[0].Address.State
 }
+
 
 // GetError : This is helper function to prepare error model.
 // If you want to export your function. You must to start upper case function name. Otherwise you won't see your function when you import that on other class.
 func GetError(err error, w http.ResponseWriter) {
+	
+	// ErrorResponse : This is error model.
+	type ErrorResponse struct {
+		StatusCode   int    `json:"status"`
+		ErrorMessage string `json:"message"`
+	}
 
 	log.Fatal(err.Error())
 	var response = ErrorResponse{
@@ -115,14 +143,15 @@ func GetError(err error, w http.ResponseWriter) {
 	w.Write(message)
 }
 
-// Configuration model
-type Configuration struct {
-	////Port             string
-	ConnectionString string
-}
 
 // GetConfiguration method basically populate configuration information from .env and return Configuration model
 func GetConfiguration() Configuration {
+	// Configuration model
+	type Configuration struct {
+		MongoConnectionString string
+		RgeoApiKey string
+	}
+
 	
 	err := godotenv.Load(".env")
 
@@ -131,8 +160,8 @@ func GetConfiguration() Configuration {
 	}
 	
 	configuration := Configuration{
-		////os.Getenv("PORT"),
-		os.Getenv("CONNECTION_STRING"),
+		os.Getenv("MONGO_CONNECTION_STRING"),
+		os.Getenv("RGEO_API_KEY"),
 	}
 
 	return configuration
