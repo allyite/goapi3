@@ -20,8 +20,12 @@ import (
 //func GetStats(c echo.Context, collection *mongo.Collection) error {
 func GetStats(c echo.Context, mClient *mongo.Client) error {
 	collection := helper.GetMongoColl(mClient)
-	sName := c.QueryParam("name")
-	sName = sName[1:len(sName)-1]
+	
+	//sName := c.QueryParam("name")
+	//sName = sName[1:len(sName)-1]
+	lat := c.QueryParam("lat")
+	long := c.QueryParam("long")
+	sName := helper.RgeoState(lat,long) 
 
 	var sr models.StateResp
 	filter := bson.M{"state": sName}
