@@ -18,8 +18,8 @@ import (
 
 //http://localhost:8000/cats/json?name=arnold&type=fluffy
 //func GetStats(c echo.Context, collection *mongo.Collection) error {
-func GetStats(c echo.Context, mclient *mongo.Client) error {
-	collection= helper.getMongoColl(mclient)
+func GetStats(c echo.Context, mClient *mongo.Client) error {
+	collection := helper.getMongoColl(mClient)
 	sName := c.QueryParam("name")
 	sName = sName[1:len(sName)-1]
 
