@@ -8,7 +8,7 @@ import (
 	"net/http"
 
 	"github.com/allyite/goapi3/models"
-//	"github.com/allyite/goapi3/helper"
+	"github.com/allyite/goapi3/helper"
 	
 	"go.mongodb.org/mongo-driver/mongo"
 	"github.com/labstack/echo"
@@ -17,7 +17,9 @@ import (
 )
 
 //http://localhost:8000/cats/json?name=arnold&type=fluffy
-func GetStats(c echo.Context, collection *mongo.Collection) error {
+//func GetStats(c echo.Context, collection *mongo.Collection) error {
+func GetStats(c echo.Context, mclient *mongo.Client) error {
+	collection= helper.getMongoColl(mclient)
 	sName := c.QueryParam("name")
 	sName = sName[1:len(sName)-1]
 	dataType := c.Param("data")
