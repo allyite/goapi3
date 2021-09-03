@@ -54,7 +54,7 @@ func updMongoColl(client *mongo.Client){
 	//return collection
 	type QRESP struct{
 		Cts []struct{} `json:"cases_time_series"`
-		Swise []StateResp `json:"statewise"`
+		Swise []models.StateResp `json:"statewise"`
 		Tested []struct{} `json:"tested"`
 	}
 	URL := "https://data.covid19india.org/data.json"
@@ -69,7 +69,7 @@ func updMongoColl(client *mongo.Client){
    	}
 	
 	for i, s := range qResp.Swise {
-    		statename= s.State
+		statename:= s.State
 		res, err := collection.DeleteOne(context.TODO(), bson.M{"state": statename})
 		if err != nil {
 			log.Fatal("DeleteOne() ERROR:", err)
@@ -80,7 +80,7 @@ func updMongoColl(client *mongo.Client){
 	}
 
 	for i, s := range qResp.Swise {
-    		statename= s.State
+		statename:= s.State
 		result, err := collection.InsertOne(context.TODO(), s)
 		if err != nil {
 			log.Fatal("Insert mongo ERROR:", err)
