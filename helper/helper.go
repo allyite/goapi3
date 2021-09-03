@@ -82,7 +82,7 @@ func UpdMongoColl(c echo.Context, client *mongo.Client) error{
 
 	for _, s := range qResp.Swise {
 		//statename:= s.State
-		s.Lastupdatedtime= time.Now().Format(time.RFC850).String()
+		s.Lastupdatedtime= time.Now().Format(time.RFC850)
 		_, err := collection.InsertOne(context.TODO(), s)
 		if err != nil {
 			log.Fatal("Insert mongo ERROR:", err)
