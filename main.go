@@ -1,6 +1,8 @@
 package main
 
 import (
+	"context"
+	
 	"github.com/allyite/goapi3/router"
 	"github.com/allyite/goapi3/helper"
 )
@@ -10,4 +12,5 @@ func main() {
 	// create a new echo instance
 	e := router.New(mClient)
 	e.Logger.Fatal(e.Start(":8000"))
+	defer mClient.Disconnect(context.TODO())
 }
