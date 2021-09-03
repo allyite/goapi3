@@ -22,7 +22,7 @@ func New(mClient *mongo.Client) *echo.Echo {
 	//e.GET("/stats/:data", handler1)
 	
 	handler2 := func(c echo.Context) error {
-        	return helper.updMongoColl(c, mClient)
+        	return helper.UpdMongoColl(c, mClient)
         }
 	e.GET("/update", handler2)
 	
