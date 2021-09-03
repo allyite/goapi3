@@ -87,7 +87,7 @@ func UpdMongoColl(client *mongo.Client) error{
 		}	
 	}
 	
-	return
+	return c.String(http.StatusOK, "Updated mongo covid-stats!\n")
 	
 }
 
