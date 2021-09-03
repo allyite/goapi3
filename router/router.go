@@ -8,12 +8,21 @@ import (
 //	"api/middlewares"
 	"go.mongodb.org/mongo-driver/mongo"
 	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 )
 
 func New(mClient *mongo.Client) *echo.Echo {
 	
 	// create a new echo instance
 	e := echo.New()
+	
+	e.Use(middleware.Logger())
+	// recover
+	e.Use(middleware.Recover())
+	//CORS
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{echo.GET, echo.HEAD, echo.PUT, echo.PATCH, echo.POST, echo.DELETE},}))
 
 	handler1 := func(c echo.Context) error {
         	return handlers.GetStats(c, mClient)
