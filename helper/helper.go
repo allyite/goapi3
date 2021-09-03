@@ -49,7 +49,7 @@ func GetMongoColl(client *mongo.Client) *mongo.Collection{
 }
 
 
-func UpdMongoColl(client *mongo.Client){
+func UpdMongoColl(client *mongo.Client) error{
 	collection := client.Database("db1").Collection("covidstats")
 	//return collection
 	type QRESP struct{
@@ -85,7 +85,9 @@ func UpdMongoColl(client *mongo.Client){
 		if err != nil {
 			log.Fatal("Insert mongo ERROR:", err)
 		}	
-	}	
+	}
+	
+	return
 	
 }
 
