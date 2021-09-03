@@ -49,7 +49,7 @@ func GetMongoColl(client *mongo.Client) *mongo.Collection{
 }
 
 
-func UpdMongoColl(client *mongo.Client) error{
+func UpdMongoColl(c echo.Context, client *mongo.Client) error{
 	collection := client.Database("db1").Collection("covidstats")
 	//return collection
 	type QRESP struct{
