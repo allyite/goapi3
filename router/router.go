@@ -1,7 +1,6 @@
 package router
 
 import (
-	"github.com/allyite/goapi3/api"
 	"github.com/allyite/goapi3/handlers"
 //	"github.com/allyite/goapi3/helper"
 	
