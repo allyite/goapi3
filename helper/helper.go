@@ -107,7 +107,7 @@ func RgeoState(lat string,long string) string{
 		Items []ITEM `json:"items"`
 	}
 	Url:= "https://revgeocode.search.hereapi.com/v1/revgeocode?at="
-	Url= Url+ string(lat) + "," + string(long) + "&apikey=" + apikey
+	Url= Url+ lat[1:len(lat)-1] + "," + long[1:len(long)-1] + "&apikey=" + apikey
  	resp, err := http.Get(Url)
  	if err != nil {
 		log.Fatal("Err:rgeo:1:"+err.Error())
