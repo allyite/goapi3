@@ -11,17 +11,26 @@ import (
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.mongodb.org/mongo-driver/bson"
+//	"go.mongodb.org/mongo-driver/bson/primitive"
+	
+	"github.com/allyite/goapi3/models"
 )
+
 
 // ConnectDB : This is helper function to connect mongoDB
 // If you want to export your function. You must to start upper case function name. Otherwise you won't see your function when you import that on other class.
-func ConnectDB() *mongo.Collection {
+func ConnectDB() *mongo.Client {
 	config := GetConfiguration()
+
 	// Set client options
 	clientOptions := options.Client().ApplyURI(config.ConnectionString)
 
 	// Connect to MongoDB
 	client, err := mongo.Connect(context.TODO(), clientOptions)
+	//ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+        //defer cancel()
+	//client, err := mongo.Connect(ctx, clientOptions)
 
 	if err != nil {
 		log.Fatal(err)
@@ -29,9 +38,55 @@ func ConnectDB() *mongo.Collection {
 
 	fmt.Println("Connected to MongoDB!")
 
-	collection := client.Database("db1").Collection("covidstats")
+	//collection := client.Database("db1").Collection("covidstats")
+	//return collection
+	return client
+}
 
+func getMongoColl(client *mongo.Client) *mongo.Collection{
+	collection := client.Database("db1").Collection("covidstats")
 	return collection
+}
+
+
+func updMongoColl(client *mongo.Client){
+	collection := client.Database("db1").Collection("covidstats")
+	//return collection
+	type QRESP struct{
+		Cts []struct{} `json:"cases_time_series"`
+		Swise []StateResp `json:"statewise"`
+		Tested []struct{} `json:"tested"`
+	}
+	URL := "https://data.covid19india.org/data.json"
+ 	resp, err := http.Get(URL)
+ 	if err != nil {
+   		log.Fatal("ooopsss1"+err.Error())
+ 	}
+ 	defer resp.Body.Close()
+	var qResp QRESP
+	if err := json.NewDecoder(resp.Body).Decode(&qResp); err != nil {
+      		log.Fatal("ooopsss2"+err.Error())
+   	}
+	
+	for i, s := range qResp.Swise {
+    		statename= s.State
+		res, err := collection.DeleteOne(context.TODO(), bson.M{"state": statename})
+		if err != nil {
+			log.Fatal("DeleteOne() ERROR:", err)
+		} /* else {
+			if res.DeletedCount == 0 { fmt.Println("DeleteOne() document not found:", res) }
+			else { fmt.Println("DeleteOne Result:", res) }
+		} */		
+	}
+
+	for i, s := range qResp.Swise {
+    		statename= s.State
+		result, err := collection.InsertOne(context.TODO(), s)
+		if err != nil {
+			log.Fatal("Insert mongo ERROR:", err)
+		}	
+	}	
+	
 }
 
 // ErrorResponse : This is error model.
