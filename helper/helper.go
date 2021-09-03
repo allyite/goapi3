@@ -43,13 +43,13 @@ func ConnectDB() *mongo.Client {
 	return client
 }
 
-func getMongoColl(client *mongo.Client) *mongo.Collection{
+func GetMongoColl(client *mongo.Client) *mongo.Collection{
 	collection := client.Database("db1").Collection("covidstats")
 	return collection
 }
 
 
-func updMongoColl(client *mongo.Client){
+func UpdMongoColl(client *mongo.Client){
 	collection := client.Database("db1").Collection("covidstats")
 	//return collection
 	type QRESP struct{
