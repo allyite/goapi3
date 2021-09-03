@@ -143,16 +143,14 @@ func GetError(err error, w http.ResponseWriter) {
 	w.Write(message)
 }
 
+// Configuration model
+type Configuration struct {
+	MongoConnectionString string
+	RgeoApiKey string
+}
 
 // GetConfiguration method basically populate configuration information from .env and return Configuration model
-func GetConfiguration() Configuration {
-	// Configuration model
-	type Configuration struct {
-		MongoConnectionString string
-		RgeoApiKey string
-	}
-
-	
+func GetConfiguration() Configuration {	
 	err := godotenv.Load(".env")
 
 	if err != nil {
