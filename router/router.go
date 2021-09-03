@@ -4,9 +4,9 @@ import (
 	"github.com/allyite/goapi3/handlers"
 	"github.com/allyite/goapi3/helper"
 	
-	"net/http"
+//	"net/http"
 //	"api/middlewares"
-
+	"go.mongodb.org/mongo-driver/mongo"
 	"github.com/labstack/echo"
 )
 
@@ -22,7 +22,7 @@ func New(mClient *mongo.Client) *echo.Echo {
 	//e.GET("/stats/:data", handler1)
 	
 	handler2 := func(c echo.Context) error {
-        	return helper.UpdMongoColl(c, mClient)
+        	return helper.UpdMongoColl(mClient)
         }
 	e.GET("/update", handler2)
 	
