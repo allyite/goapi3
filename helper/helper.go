@@ -68,9 +68,9 @@ func updMongoColl(client *mongo.Client){
       		log.Fatal("ooopsss2"+err.Error())
    	}
 	
-	for i, s := range qResp.Swise {
+	for _, s := range qResp.Swise {
 		statename:= s.State
-		res, err := collection.DeleteOne(context.TODO(), bson.M{"state": statename})
+		_, err := collection.DeleteOne(context.TODO(), bson.M{"state": statename})
 		if err != nil {
 			log.Fatal("DeleteOne() ERROR:", err)
 		} /* else {
@@ -79,9 +79,9 @@ func updMongoColl(client *mongo.Client){
 		} */		
 	}
 
-	for i, s := range qResp.Swise {
-		statename:= s.State
-		result, err := collection.InsertOne(context.TODO(), s)
+	for _, s := range qResp.Swise {
+		//statename:= s.State
+		_, err := collection.InsertOne(context.TODO(), s)
 		if err != nil {
 			log.Fatal("Insert mongo ERROR:", err)
 		}	
