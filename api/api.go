@@ -2,13 +2,12 @@ package api
 
 import (
 	"github.com/allyite/goapi3/handlers"
-	"github.com/allyite/goapi3/helper"
+//	"github.com/allyite/goapi3/helper"
 	"net/http"
 	"github.com/labstack/echo"
 )
 
-func MainGroup(e *echo.Echo) {
-	var collection = helper.ConnectDB()
+func MainGroup(e *echo.Echo, mClient *mongo.Client) {
 	// Route / to handler function
   /*
 	e.GET("/health-check", handlers.HealthCheck)
@@ -18,7 +17,7 @@ func MainGroup(e *echo.Echo) {
   */
 	
 	handler1 := func(c echo.Context) error {
-        	return handlers.GetStats(c, collection)
+        	return handlers.GetStats(c, mClient)
         }
 
 	e.GET("/cats/:data", handler1)
