@@ -110,12 +110,12 @@ func RgeoState(lat string,long string) string{
 	Url= Url+ string(lat) + "," + string(long) + "&apikey=" + apikey
  	resp, err := http.Get(Url)
  	if err != nil {
-   		log.Fatal("ooopsss1"+err.Error())
+		log.Fatal("Err:rgeo:1:"+err.Error())
  	}
  	defer resp.Body.Close()
 	var items ITEMS
 	if err := json.NewDecoder(resp.Body).Decode(&items); err != nil {
-      		log.Fatal("ooopsss2"+err.Error())
+		log.Fatal("Err:rgeo:2:"+err.Error())
    	}
 	return items.Items[0].Address.State
 }
