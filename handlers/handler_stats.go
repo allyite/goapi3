@@ -41,10 +41,24 @@ func GetStats(c echo.Context, mClient *mongo.Client) error {
 		////helper.GetError(err, w)
 		return c.String(http.StatusOK, fmt.Sprintf("Error : %s\nIndia", err.Error()))
 	}
-	////return c.JSON(http.StatusOK, sr)
-	out := "State: "+ sName + "\nActive Cases: " + sr.Active + "\nTotal Confirmed Cases: " + sr.Confirmed 
-	out = out + "\n\n" + "Country: India" + "\nActive Cases: " + sr2.Active + "\nTotal Confirmed Cases: " + sr2.Confirmed + "\nLast Updated Time: " + sr2.Lastupdatedtime
-	return c.String(http.StatusOK, fmt.Sprintf(out))
+	str1:= models.StatsResp{
+		State:{
+			Name: sName,
+			Active: sr.Active,
+			Confirmed: sr.Confirmed ,
+			Lastupdatedtime: sr.Lastupdatedtime,
+		},
+		Country:{
+			Name: "India",
+			Active: sr2.Active,
+			Confirmed: sr2.Confirmed,
+			Lastupdatedtime: sr2.Lastupdatedtime,
+		},
+	}
+	return c.JSON(http.StatusOK, str1)
+	//out := "State: "+ sName + "\nActive Cases: " + sr.Active + "\nTotal Confirmed Cases: " + sr.Confirmed 
+	//out = out + "\n\n" + "Country: India" + "\nActive Cases: " + sr2.Active + "\nTotal Confirmed Cases: " + sr2.Confirmed + "\nLast Updated Time: " + sr2.Lastupdatedtime
+	//return c.String(http.StatusOK, fmt.Sprintf(out))
 
 }
 
