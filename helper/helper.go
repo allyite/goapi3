@@ -29,18 +29,12 @@ func ConnectDB() *mongo.Client {
 
 	// Connect to MongoDB
 	client, err := mongo.Connect(context.TODO(), clientOptions)
-	//ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-        //defer cancel()
-	//client, err := mongo.Connect(ctx, clientOptions)
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	fmt.Println("Connected to MongoDB!")
-
-	//collection := client.Database("db1").Collection("covidstats")
-	//return collection
 	return client
 }
 
