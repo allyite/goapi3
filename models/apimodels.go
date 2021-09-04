@@ -41,3 +41,17 @@ type StateResp struct {
 	Statecode string `json:"statecode" bson:"statecode"`
 	Statenotes string `json:"statenotes" bson:"statenotes"`
 }
+
+type StatsResp struct {
+	State struct{
+		Name string `json:"name"`
+		Active string `json:"active"`
+		Confirmed string `json:"confirmed"`
+	} `json:"state"`
+	Country struct{
+		Name string `json:"name"`
+		Active string `json:"active"`
+		Confirmed string `json:"confirmed"`
+	} `json:"country"`
+	Lastupdatedtime string `json:"lastupdatedtime"`
+}
