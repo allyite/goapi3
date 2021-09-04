@@ -5,7 +5,7 @@ import (
 	"github.com/allyite/goapi3/helper"
 	
 //	"net/http"
-//	"api/middlewares"
+
 	"go.mongodb.org/mongo-driver/mongo"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -38,24 +38,8 @@ func New(mClient *mongo.Client) *echo.Echo {
 	return e
 	
 	/*	
-  	//create groups
-	//adminGroup := e.Group("/admin")
-
-	//set all middlewares
-	//middlewares.SetMainMiddleWares(e)
-	//middlewares.SetAdminMiddlewares(adminGroup)
-
-	//set main routes
-	MainGroup(e)
-
-	//set groupRoutes
-	//api.AdminGroup(adminGroup)
-	e.GET("/health-check", handlers.HealthCheck)
-
-	e.GET("/cats/:data", handlers.GetCats)
-	e.POST("/cats", handlers.AddCat)
-	e.GET("/dogs", func(c echo.Context) error {       
-	return c.String(http.StatusOK, "Hello, Dogs!\n")  
+	e.GET("/temp", func(c echo.Context) error {       
+	return c.String(http.StatusOK, "Hello!\n")  
 	})
   	*/
 }
