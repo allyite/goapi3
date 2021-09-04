@@ -47,11 +47,12 @@ type StatsResp struct {
 		Name string `json:"name"`
 		Active string `json:"active"`
 		Confirmed string `json:"confirmed"`
+		Lastupdatedtime string `json:"lastupdatedtime"`
 	} `json:"state"`
 	Country struct{
 		Name string `json:"name"`
 		Active string `json:"active"`
 		Confirmed string `json:"confirmed"`
+		Lastupdatedtime string `json:"lastupdatedtime"`
 	} `json:"country"`
-	Lastupdatedtime string `json:"lastupdatedtime"`
 }
