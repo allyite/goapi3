@@ -42,13 +42,13 @@ func GetStats(c echo.Context, mClient *mongo.Client) error {
 		return c.String(http.StatusOK, fmt.Sprintf("Error : %s\nIndia", err.Error()))
 	}
 	str1:= models.StatsResp{
-		State:{
+		State:struct{
 			Name: sName,
 			Active: sr.Active,
 			Confirmed: sr.Confirmed ,
 			Lastupdatedtime: sr.Lastupdatedtime,
 		},
-		Country:{
+		Country:struct{
 			Name: "India",
 			Active: sr2.Active,
 			Confirmed: sr2.Confirmed,
