@@ -9,8 +9,8 @@ import (
 
 func main() {
 	var mClient = helper.ConnectDB()
+	defer mClient.Disconnect(context.TODO())
 	// create a new echo instance
 	e := router.New(mClient)
 	e.Logger.Fatal(e.Start(":8000"))
-	defer mClient.Disconnect(context.TODO())
 }
